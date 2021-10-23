@@ -6,10 +6,6 @@ For each simulation, the corresponding parameters are placed into
 function that can enables sampling given a specified range.
 """
 
-using Distributions
-include("./simutils.jl")
-using .simutils
-
 """
     Degradation
 
@@ -20,7 +16,7 @@ using .simutils
 :param sampling_scheme (String): Uniform or Grid sampling where Uniform returns single values and Grid returns an array from [Lower, Upper]
 :param sampling_density (Int64): If Grid sampling, the number of splits of [Lower, Upper] for each parameter e.g. 10 returns 10 values evenly spaced between [Lower, Upper]
 
-> Returns:
+>return:
     - If sampling_scheme Uniform, an array containing single values for each parameter
     - If sampling_scheme Grid, a multi-dimensional array containing N = sampling_density observations for each parameter
 """
