@@ -5,9 +5,11 @@ A stochastic simulation algorithm tracking degradation of a single molecular spe
 The example was sourced from Erban & Chapman (2020).
 """
 
-"""Degradation
+"""
+    Degradation
 
-:param Params (Array{Any, 1}): An array containing [N, k, dt, tmax]
+# Arguments
+    - Params (Array{Any, 1}): An array containing [N, k, dt, tmax]
 
 >return:
     - A nested array containing simulation parameters, times at each step, number of molecules at each step

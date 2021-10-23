@@ -27,9 +27,8 @@ export
     PlotDegradation
 
 include("simulation/degradation.jl")
+include("plotting/degradation.jl")
 include("simulation/parameters.jl")
 include("simulation/simutils.jl")
-
-PLOTS_DEFAULTS = Dict(:dpi => 600)
 
 end

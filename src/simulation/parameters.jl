@@ -7,16 +7,17 @@ function that can enables sampling given a specified range.
 """
 
 """
-    Degradation
+    ParamsDegradation
 
-:param N (Array{Int64,1}): Lower and upper bounds on initial population size
-:param k (Array{Int64,1}): Lower and upper bounds on degradation rate
-:param dt (Array{Int64,1}): Lower and upper bounds on change in time per event
-:param tmax (Array{Int64,1}): Lower and upper bounds on total simulation time
-:param sampling_scheme (String): Uniform or Grid sampling where Uniform returns single values and Grid returns an array from [Lower, Upper]
-:param sampling_density (Int64): If Grid sampling, the number of splits of [Lower, Upper] for each parameter e.g. 10 returns 10 values evenly spaced between [Lower, Upper]
+# Arguments:
+    - N (Array{Int64,1}): Lower and upper bounds on initial population size
+    - k (Array{Int64,1}): Lower and upper bounds on degradation rate
+    - dt (Array{Int64,1}): Lower and upper bounds on change in time per event
+    - tmax (Array{Int64,1}): Lower and upper bounds on total simulation time
+    - sampling_scheme (String): Uniform or Grid sampling where Uniform returns single values and Grid returns an array from [Lower, Upper]
+    - sampling_density (Int64): If Grid sampling, the number of splits of [Lower, Upper] for each parameter e.g. 10 returns 10 values evenly spaced between [Lower, Upper]
 
->return:
+> Returns:
     - If sampling_scheme Uniform, an array containing single values for each parameter
     - If sampling_scheme Grid, a multi-dimensional array containing N = sampling_density observations for each parameter
 """

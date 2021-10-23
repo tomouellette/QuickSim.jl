@@ -4,20 +4,22 @@
 Plotting utilities for degradation of a single molecular species simulations
 """
 
-"""PlotDegradation
+"""
+    PlotDegradation
 
 Takes in N samples from a Degradation simulation run with identical parameter settings and returns a plot.
 
-:param p (Array{Any, 1}): Parameters (N, k, dt, t) for a Degradation simulation
-:param t (Array{Float, 1}): Times across each step
-:param Nt (Array{Float, 1}): Number of molecules in population at a given time step
-:param width (Int): width of plot
-:param height (Int): height of plot
-:param theory (Bool): If true, draw the expected theoretical decay N*exp(-k*t)
-:param figsave (Bool): If true, save a figure as an svg
-:param figname (String): The name of the figure, add path to front of name if you do not want to save in current directory
+# Arguments:
+    - p (Array{Any, 1}): Parameters (N, k, dt, t) for a Degradation simulation
+    - t (Array{Float, 1}): Times across each step
+    - Nt (Array{Float, 1}): Number of molecules in population at a given time step
+    - width (Int): width of plot
+    - height (Int): height of plot
+    - theory (Bool): If true, draw the expected theoretical decay N*exp(-k*t)
+    - figsave (Bool): If true, save a figure as an svg
+    - figname (String): The name of the figure, add path to front of name if you do not want to save in current directory
 
->return:
+> Return:
     - A JuliaPlots object
 """
 function PlotDegradation(p, t, Nt, width=450, height=350; theory=false, figsave=false, figname="none")    
