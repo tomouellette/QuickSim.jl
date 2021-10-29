@@ -1,16 +1,16 @@
 """
-    Degradation
+    ProductionDegradation
 
 Plotting utilities for degradation of a single molecular species simulations
 """
 
 """
-    PlotDegradation
+    PlotProductionDegradation
 
 Takes in N samples from a Degradation simulation run with identical parameter settings and returns a plot.
 
 # Arguments:
-    - p (Array{Any, 1}): Parameters (N, k, dt, t) for a Degradation simulation
+    - p (Array{Any, 1}): Parameters (N, k1, k2, t) for a ProductionDegradation simulation
     - t (Array{Float, 1}): Times across each step
     - Nt (Array{Float, 1}): Number of molecules in population at a given time step
     - width (Int): width of plot
@@ -22,10 +22,10 @@ Takes in N samples from a Degradation simulation run with identical parameter se
 > Return:
     - A JuliaPlots object
 """
-function PlotDegradation(p, t, Nt, width=450, height=350; theory=false, figsave=false, figname="none", colors = ["#314ca3", "#47b42f"], shrinkfont=0)
+function PlotProductionDegradation(p, t, Nt, width=450, height=350; theory=false, figsave=false, figname="none", colors = ["#314ca3", "#47b42f"], shrinkfont=0)
     theme(:wong2, 
         framestyle=:box,
-        legend=true, 
+        legend=:topleft, 
         thickness_scaling=1.1,
         widen=false, 
         grid=false,
@@ -37,8 +37,9 @@ function PlotDegradation(p, t, Nt, width=450, height=350; theory=false, figsave=
         foreground_color_legend=:transparent,
         fontfamily="Helvetica")
 
-    plot_title = "N " * string(round(p[1], sigdigits=2)) * ", k " * string(round(p[2], sigdigits=2)) * ", dt " * string(round(p[3], sigdigits=2)) *
+    plot_title = "N " * string(round(p[1], sigdigits=2)) * ", k1 " * string(round(p[2], sigdigits=2)) * ", k2 " * string(round(p[3], sigdigits=2)) *
                 ", t " * string(round(p[4], sigdigits=2)) * ", ns " * string(length(Nt))
+    
     plt = plot(t, 
              Nt, 
              xlabel="Time (sec)", 
@@ -50,53 +51,12 @@ function PlotDegradation(p, t, Nt, width=450, height=350; theory=false, figsave=
              titlelocation=:left,
              labels="",
              size = (width, height))
-
-    plot!(mean(t), 
-          mean(Nt), 
-          xlabel="Time (sec)", 
-          ylabel="Number of molecules",
-          c=colors[2],
-          linewidth=3.5,
-          legend=true,
-          lab="Sample mean",
-          alpha=1,
-          legendmarkersize = 2)        
-
-    plot!(mean(t), 
-          mapslices(x->quantile(x,0.055),hcat(Nt...),dims=2)[:,1],
-          fillrange=mapslices(x->quantile(x,0.945),hcat(Nt...),dims=2)[:,1], 
-          xlabel="Time (sec)", 
-          ylabel="Number of molecules",
-          c=colors[2],
-          linestyle=:dot,
-          legend=true,
-          lab="Sample quantiles (95%)",
-          alpha=0.2)
-    
-    plot!(mean(t), 
-          mapslices(x->quantile(x,0.055),hcat(Nt...),dims=2)[:,1],
-          xlabel="Time (sec)", 
-          ylabel="Number of molecules",
-          c=colors[2],
-          linewidth=3.5,
-          linestyle=:dot,
-          lab="",
-          alpha=1)
-
-    plot!(mean(t), 
-          mapslices(x->quantile(x,0.945),hcat(Nt...),dims=2)[:,1],          
-          xlabel="Time (sec)", 
-          ylabel="Number of molecules",
-          c=colors[2],
-          linewidth=3.5,
-          linestyle=:dot,
-          lab="",
-          alpha=1)
     
     if theory == true
+        # Number of molecules at time t follows the equation: Nt = k2/k1 + (N0 - k2/k1)*exp(-k1*t)
         plot!([i-1 for i in 1:(Int(p[4])+1)], 
-          [p[1]*exp(-p[2]*(i-1)) for i in 1:(Int(p[4])+1)],
-          legend=true,
+          [p[3]/p[2] + (p[1] - p[3]/p[2])*exp(-p[2]*(i-1)) for i in 1:(Int(p[4])+1)],
+          legend=:topleft,
           lab="Theory",
           color="darkred",
           linewidth=2.5,

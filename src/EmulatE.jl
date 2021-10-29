@@ -19,16 +19,40 @@ export
 
     # Simulation parameters
     ParamsDegradation,
+    ParamsProductionDegradation,
 
     # Simulations
     Degradation,
+    ProductionDegradation,
 
     # Plotting
-    PlotDegradation
+    PlotDegradation,
+    PlotProductionDegradation,
 
-include("simulation/degradation.jl")
-include("plotting/degradation.jl")
+    # Simulation examples
+    examples_degradation,
+    examples_production_degradation,
+
+    # Bulk data generation
+    generate_degradation,
+    generate_production_degradation
+
+# Simulations
 include("simulation/parameters.jl")
 include("simulation/simutils.jl")
+include("simulation/degradation.jl")
+include("simulation/production-degradation.jl")
+
+# Plotting
+include("plotting/degradation.jl")
+include("plotting/production-degradation.jl")
+
+# Examples
+include("data/degradation_example.jl")
+include("data/production-degradation_example.jl")
+
+# Data
+include("data/degradation_generate.jl")
+include("data/production-degradation_generate.jl")
 
 end

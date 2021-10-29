@@ -30,7 +30,7 @@ function grid_sample(X::Array, n::Int64)
     if typeof(X[1]) != Int64
         X = [X[1] + (X[2]-X[1])*((i-1)/(n-1)) for i in 1:n]
     else
-        X = collect(X[1]:X[2])
+        X = collect(range(X[1],X[2],step=n))
     end
     return X
 end
@@ -38,6 +38,20 @@ end
 """
 Produces all parameter combinations given arbitrary number of input arrays where each array is a set of parameter values
 """
-function grid_params(args...)
-    return collect(Base.Iterators.product(args...))
+function grid_params(args)
+    grid = unique(collect(Base.Iterators.product(args...)))
+    return grid
+end
+
+"""
+Pad a set of ragged arrays with zeros to make them all the same length
+"""
+function pad_ragged(arr, ;pad_length::Int64 = 300, to_mat::Bool = false)
+    arrlen = pad_length .- [length(i) for i in arr]
+    pad = [cat(arr[i], zeros(arrlen[i]), dims=1) for i in 1:length(arr)]
+    if to_mat == true
+        return transpose(collect(hcat(pad...)))
+    else
+        return pad
+    end
 end

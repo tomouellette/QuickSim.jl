@@ -11,7 +11,7 @@ The example was sourced from Erban & Chapman (2020).
 # Arguments
     - Params (Array{Any, 1}): An array containing [N, k, dt, tmax]
 
->return:
+> Returns:
     - A nested array containing simulation parameters, times at each step, number of molecules at each step
 """
 function Degradation(Params)
