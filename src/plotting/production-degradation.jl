@@ -1,13 +1,13 @@
 """
     ProductionDegradation
 
-Plotting utilities for degradation of a single molecular species simulations
+Plotting utilities for production and degradation of a single molecular species simulations
 """
 
 """
     PlotProductionDegradation
 
-Takes in N samples from a Degradation simulation run with identical parameter settings and returns a plot.
+Takes in N samples from a ProductionDegradation simulation run with identical parameter settings and returns a plot.
 
 # Arguments:
     - p (Array{Any, 1}): Parameters (N, k1, k2, t) for a ProductionDegradation simulation
