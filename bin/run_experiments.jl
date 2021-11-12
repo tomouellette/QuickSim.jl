@@ -13,3 +13,7 @@ generate_degradation(path = MAIN * "data/degradation/")
 # Degradation of a single molecular species
 examples_production_degradation(path = MAIN * "plots/")
 generate_production_degradation(path = MAIN * "data/production-degradation/")
+
+# Haploid wright fisher with selection tracking change in allele frequency
+examples_wright_fisher(path = MAIN * "plots/")
+generate_wright_fisher(path = MAIN * "data/wright-fisher/")

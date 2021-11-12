@@ -93,3 +93,47 @@ function ParamsProductionDegradation(
 
     return [N, k1, k2, tmax]
 end
+
+"""
+    WrightFisher
+
+# Arguments: 
+    - N (Array{Int64,1}): Lower and upper bounds on initial population size
+    - g (Array{Int64,1}): Lower and upper bounds on number of generations
+    - f (Array{Int64,1}): Lower and upper bounds of initial frequency of allele being tracked
+    - s (Array{Int64,1}): Lower and upper bounds on the selection coefficient of the allele being tracked
+    - sampling_scheme (String): Uniform or Grid sampling where Uniform returns single values and Grid returns an array from [Lower, Upper]
+    - sampling_density (Int64): If Grid sampling, the number of splits of [Lower, Upper] for each parameter e.g. 10 returns 10 values evenly spaced between [Lower, Upper]
+
+> Returns:
+    - If sampling_scheme Uniform, an array containing single values for each parameter
+    - If sampling_scheme Grid, a multi-dimensional array containing N = sampling_density observations for each parameter
+"""
+function ParamsWrightFisher(
+    N::Array{Int64,1} = [10000,10000],
+    g::Array{Int64,1} = [1000, 1000],
+    f::Array{Float64,1} = [0.01, 0.01],
+    s::Array{Float64,1} = [0.005, 0.005];
+    sampling_scheme::String = "Uniform",
+    sampling_density::Int64 = 0
+)
+
+    # Generate uniformly sample parameters from [Lower, Upper]
+    if sampling_scheme == "Uniform"
+        N = SampleUniformD(N)
+        g = SampleUniformD(g)
+        f = SampleUniform(f)
+        s = SampleUniform(s)
+
+    # Generate bulk parameters sampled across a [Lower, Upper] grid with N = sampling_density observations
+    elseif sampling_scheme == "Grid"
+        N = grid_sample(N, sampling_density)
+        g = grid_sample(g, sampling_density)
+        f = grid_sample(f, sampling_density)
+        s = grid_sample(s, sampling_density)
+    else
+        println("Warning: sampling_scheme must be either Uniform or Grid")
+    end
+
+    return [N, g, f, s]
+end

@@ -20,8 +20,8 @@ function ProductionDegradation(Params)
     N, k1, k2, tmax = Params
     Nt, t = [N], [0.0]
 
-    # Iterate across state    
-    while t[end] < tmax
+    # Iterate across time
+    while length(t) < tmax
         r1, r2 = rand(1)[1], rand(1)[1]
 
         # Compute overall rate 
