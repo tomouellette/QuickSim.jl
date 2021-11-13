@@ -4,7 +4,7 @@ using Pkg
 Pkg.activate(".")
 using EmulatE
 
-MAIN = "/Users/touellette/Research/Submissions/EmulatE/"
+MAIN = "/Users/touellette/Research/"
 
 # Degradation of a single molecular species
 examples_degradation(path = MAIN * "plots/")
